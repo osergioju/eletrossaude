@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eletrossaúde — Cuidando de quem cuida da energia</title>
+  <script src="https://omnichannel-sdk.mosiaomnichannel.com.br/"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0b1f2a;
+      --ink-soft: #2a3d48;
+      --paper: #f6f1e8;
+      --paper-warm: #ede4d3;
+      --sea: #0f4c5c;
+      --sea-deep: #073642;
+      --pulse: #2dbf6e;
+      --pulse-glow: #5be39a;
+      --amber: #e6a13a;
+      --line: rgba(11, 31, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Montserrat", sans-serif;
+      -webkit-font-smoothing: antialiased
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(45, 191, 110, 0.08), transparent 50%),
+        radial-gradient(ellipse at 85% 100%, rgba(15, 76, 92, 0.10), transparent 55%),
+        var(--paper);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* grão sutil no fundo */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      opacity: .6;
+      z-index: 1;
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 40px 80px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: linear-gradient(140deg, var(--sea), var(--sea-deep));
+      display: grid;
+      place-items: center;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.4) inset,
+        0 12px 28px -10px rgba(7, 54, 66, 0.45);
+      position: relative;
+    }
+
+    .logo-mark svg {
+      width: 30px;
+      height: 30px
+    }
+
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 30% 20%, rgba(91, 227, 154, 0.5), transparent 60%);
+      z-index: -1;
+      filter: blur(8px);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .logo-text .name {
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .logo-text .tag {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .meta {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .meta .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pulse);
+      box-shadow: 0 0 0 4px rgba(45, 191, 110, 0.18);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 4px rgba(45, 191, 110, 0.18)
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(45, 191, 110, 0.05)
+      }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 90px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sea);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow .line {
+      width: 32px;
+      height: 1px;
+      background: var(--sea);
+    }
+
+    h1 {
+      font-weight: 400;
+      font-size: clamp(42px, 5.5vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--sea);
+    }
+
+    .lead {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 540px;
+      margin-bottom: 40px;
+    }
+
+    /* CTAs */
+    .ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      --bg: var(--sea-deep);
+      --fg: var(--paper);
+      background: var(--bg);
+      color: var(--fg);
+      text-decoration: none;
+      padding: 18px 26px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 10px 24px -12px rgba(7, 54, 66, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn .arrow {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.14);
+      display: grid;
+      place-items: center;
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .btn .arrow svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--fg);
+      transition: transform .3s ease
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 18px 36px -14px rgba(7, 54, 66, 0.55)
+    }
+
+    .btn:hover .arrow svg {
+      transform: translateX(2px)
+    }
+
+    .btn.alt {
+      --bg: var(--paper);
+      --fg: var(--ink);
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 8px 18px -14px rgba(7, 54, 66, 0.3);
+    }
+
+    .btn.alt .arrow {
+      background: var(--ink);
+    }
+
+    .btn.alt .arrow svg {
+      stroke: var(--paper)
+    }
+
+    .btn.alt:hover {
+      background: #fff
+    }
+
+    /* hero visual */
+    .hero-card {
+      position: relative;
+      aspect-ratio: 4/2;
+      border-radius: 24px;
+      background:
+        linear-gradient(160deg, var(--sea) 0%, var(--sea-deep) 100%);
+      overflow: hidden;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.18) inset,
+        0 40px 80px -30px rgba(7, 54, 66, 0.55);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 90%, rgba(91, 227, 154, 0.35), transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(230, 161, 58, 0.18), transparent 50%);
+    }
+
+    /* linhas eletro-cardiográficas */
+    .ekg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 30%;
+      height: 120px;
+      opacity: 0.85;
+    }
+
+    .ekg svg {
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    .ekg .trace {
+      fill: none;
+      stroke: var(--pulse-glow);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 6px rgba(91, 227, 154, 0.6));
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: draw 4s ease-out forwards .3s;
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0
+      }
+    }
+
+    .hero-card .quote {
+      position: absolute;
+      top: 40px;
+      left: 36px;
+      right: 36px;
+      color: var(--paper);
+    }
+
+    .hero-card .quote .num {
+
+      font-style: italic;
+      font-size: 13px;
+      opacity: .7;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero-card .quote .txt {
+
+      font-weight: 300;
+      font-size: 26px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-card .quote .txt em {
+      font-style: italic;
+      color: var(--pulse-glow);
+    }
+
+    .hero-card .footer {
+      position: absolute;
+      bottom: 32px;
+      left: 36px;
+      right: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      color: rgba(246, 241, 232, 0.7);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-card .footer .big {
+
+      font-style: italic;
+      font-size: 42px;
+      color: var(--paper);
+      letter-spacing: -0.02em;
+      text-transform: none;
+      line-height: 1;
+    }
+
+    /* ===== STATS ROW ===== */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 90px;
+    }
+
+    .stat {
+      padding: 28px 24px;
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-right: none
+    }
+
+    .stat .num {
+
+      font-size: 38px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--sea-deep);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat .num em {
+      font-style: italic;
+      color: var(--pulse)
+    }
+
+    .stat .lbl {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    /* ===== NETWORK SECTION ===== */
+    .network {
+      margin-top: 40px;
+    }
+
+    .network-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .network-head h2 {
+
+      font-weight: 400;
+      font-size: clamp(32px, 4vw, 48px);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .network-head h2 em {
+      font-style: italic;
+      color: var(--sea)
+    }
+
+    .network-head .desc {
+      font-size: 14px;
+      color: var(--ink-soft);
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    .iframe-shell {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.6) inset,
+        0 30px 60px -28px rgba(7, 54, 66, 0.3);
+      height: 800px;
+    }
+
+    #container-ms-4-4 {
+      width: 100%;
+      height: 100%;
+    }
+
+    .omnichannel-iframe {
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      background: transparent !important;
+      display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    footer .marks {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    /* ===== ENTRADA ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: reveal .9s cubic-bezier(.2, .7, .2, 1) forwards
+    }
+
+    .r1 {
+      animation-delay: .1s
+    }
+
+    .r2 {
+      animation-delay: .25s
+    }
+
+    .r3 {
+      animation-delay: .4s
+    }
+
+    .r4 {
+      animation-delay: .55s
+    }
+
+    .r5 {
+      animation-delay: .7s
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 900px) {
+      .page {
+        padding: 24px 22px 60px
+      }
+
+      header {
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+        gap: 16px
+      }
+
+      .meta {
+        font-size: 11px
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        margin-bottom: 60px
+      }
+
+      .hero-card {
+        aspect-ratio: 5/6;
+        max-width: 520px;
+        margin: 0 auto
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 60px
+      }
+
+      .stat {
+        border-right: none;
+        border-bottom: 1px solid var(--line)
+      }
+
+      .stat:nth-child(odd) {
+        border-right: 1px solid var(--line)
+      }
+
+      .stat:nth-child(n+3) {
+        border-bottom: none
+      }
+
+      .network-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px
+      }
+
+      .iframe-shell {
+        height: 600px
+      }
+
+      .ctas {
+        flex-direction: column;
+        align-items: stretch
+      }
+
+      .btn {
+        justify-content: space-between
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 42px
+      }
+
+      .hero-card .quote .txt {
+        font-size: 22px
+      }
+
+      .hero-card .footer .big {
+        font-size: 32px
+      }
+
+      .iframe-shell {
+        height: 520px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- ============== HEADER ============== -->
+    <header class="reveal r1">
+      <div class="logo">
+        <div class="logo-text">
+          <img src="logo-menu.png" alt="">
+        </div>
+      </div>
+      <div class="meta">
+      </div>
+    </header>
+
+    <!-- ============== HERO ============== -->
+    <section class="hero">
+
+      <div class="hero-text">
+
+        <h1 class="reveal r2">
+          Nosso site está<br>
+          em <em>manutção</em>
+        </h1>
+
+        <p class="lead reveal r3">
+          Mas não se preocupe, seus acessos a sua área estão funcionando normalmente
+        </p>
+
+        <div class="ctas reveal r4">
+          <a href="https://beneficiario.eletrossaude.com.br/" target="_blank" class="btn">
+            <span>Acesso beneficiários</span>
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+          <a href="http://3030pip.cloudmv.com.br/mvautorizadorguias/" target="_blank" class="btn alt">
+            <span>Acesso credenciado</span>
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- card visual -->
+      <aside class="hero-card reveal r3" aria-hidden="true">
+        <div class="ekg">
+          <svg viewBox="0 0 800 120" preserveAspectRatio="none">
+            <path class="trace" d="
+            M0,60
+            L120,60 L140,60 L150,55 L160,65 L170,60
+            L240,60 L255,60 L265,30 L275,90 L285,20 L295,100 L305,60
+            L380,60 L400,60 L410,55 L420,65 L430,60
+            L520,60 L535,60 L545,30 L555,90 L565,20 L575,100 L585,60
+            L680,60 L700,60 L710,55 L720,65 L730,60
+            L800,60
+          " />
+          </svg>
+        </div>
+      </aside>
+    </section>
+
+
+    <!-- ============== REDE CREDENCIADA ============== -->
+    <section class="network reveal r5" id="credenciado">
+      <div class="network-head">
+        <h2>Rede <em>credenciada.</em></h2>
+      </div>
+
+      <div class="iframe-shell">
+        <div id="container-ms-4-4"></div>
+      </div>
+    </section>
+
+    <!-- ============== FOOTER ============== -->
+    <footer>
+      <span>© Eletrossaúde · Todos os direitos reservados</span>
+      <div class="marks">
+        <span>ANS · 42.207-0</span>
+        <span>E-mail· atendimento@eletrossaude.com.br</span>
+        <span>Telefones · (21) 3900-3132 - (21) 2196-5101</span>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <script type="text/javascript">
+    let funcionalidadeS9 = window.omnichannelSDK.embed({
+      id: "container-ms-4-4",
+      url: "https://funcionalidades-front.mosiaomnichannel.com.br/",
+      json: {
+        idFuncionalidade: 4,
+        bundle: "MTAwLjExNi40OC4xMDEuMTEzLjExMS40OC4xMTEuMTEzLjEwMC4xMDcuMTEwLjEwMy4xMTcuOTkuMTE5LjEwMi4xMDMuNDguMTAzLjExMC4xMDMuMTE4LjExNi4xMTMuMTE3LjExNy45OS4xMTkuMTAyLjEwMy4=",
+        authorization: null, // opcional para funcionalidades que não necessitam de login
+        esquemaCor: null, // null pega o default, ou o slug de um esquema qualquer
+        permiteGeolocalizacao: true, // Permite o uso de geolocalização no navegador
+        apenasGuiaImpresso: false, // Exibir apenas os Guias impressos
+        solicitaGeolocalizacaoNoCarregamento: false, // Solicita a permissão de localização ao usuário no carregamento. (Depende do permiteGeolocalizacao ativado)
+        lat: null, // Caso a latitude seja informada, a aplicação utilizará para buscar os mais próximos. (Depende do permiteGeolocalizacao ativado)
+        lng: null // Caso a longitude seja informada, a aplicação utilizará para buscar os mais próximos. (Depende do permiteGeolocalizacao ativado)
+      }
+    })
+  </script>
+
+</body>
+
+</html>
