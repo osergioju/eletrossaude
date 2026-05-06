@@ -286,18 +286,18 @@
       background: #fff
     }
 
-    /* hero visual */
-    .hero-card {
-      position: relative;
-      aspect-ratio: 4/2;
-      border-radius: 24px;
-      background:
-        linear-gradient(160deg, var(--sea) 0%, var(--sea-deep) 100%);
-      overflow: hidden;
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.18) inset,
-        0 40px 80px -30px rgba(7, 54, 66, 0.55);
-    }
+.hero-card {
+    position: relative;
+    border-radius: 24px;
+    background: linear-gradient(160deg, var(--sea) 0%, var(--sea-deep) 100%);
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 40px 80px -30px rgba(7, 54, 66, 0.55);
+}
+
+    aside.hero-card.reveal.r3 img {
+      transform: scaleX(-1);
+  }
+
 
     .hero-card::before {
       content: "";
@@ -723,6 +723,15 @@
               </svg>
             </span>
           </a>
+
+          <a href="#credenciado" target="_blank" class="btn alt">
+            <span>Rede credenciada</span>
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
         </div>
       </div>
 
@@ -735,7 +744,7 @@
 
 
     <!-- ============== REDE CREDENCIADA ============== -->
-    <section class="network reveal r5" id="credenciado">
+    <section class="network reveal  r5" id="credenciado">
       <div class="network-head">
         <h2>Rede <em>credenciada.</em></h2>
       </div>
